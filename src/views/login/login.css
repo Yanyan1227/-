@@ -1,0 +1,37 @@
+.loginBox {
+  width: 400px;
+  height: 250px;
+  margin: auto;
+  margin-top: 15%;
+  border: 0px solid;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.choseManner {
+  display: flex;
+  justify-content: space-evenly;
+  position: relative;
+  top: 10px;
+  cursor: pointer;
+}
+
+.phoneLogin:focus {
+  color: #409EFF;
+}
+
+.inputBox {
+  margin-top: 10%;
+  margin-left: 50px;
+}
+
+input {
+  outline: none;
+  margin-bottom: 10px;
+  margin-left: 5px;
+}
+
+.loginButton {
+  display: block;
+  margin-left: 25%;
+  width: 200px;
+}
