@@ -5,13 +5,12 @@ import router from './router'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
 import hyRequest from './service'
-
+import store from './store'
 const app = createApp(App)
 app.use(router)
 app.use(ElementPlus)
 app.mount('#app')
-
-
+app.use(store)
 //调用
 // hyRequest.request({
 //   url:'/home/multidata',
@@ -28,9 +27,9 @@ app.mount('#app')
 //   }
 // })
 
-hyRequest.request({
-  url:'/home/multidata',
-  method:"GET"
-}).then((res) =>{
-  console.log(res.data)
-})
+// hyRequest.request({
+//   url:'',
+//   method:"GET"
+// }).then((res) =>{
+//   // console.log(res.data)
+// })

@@ -16,6 +16,8 @@
 import { ref, reactive, defineExpose } from 'vue'
 import type { FormInstance } from 'element-plus'
 import localCache from '@/utils/cache';
+import {useStore} from 'vuex'
+
 const account = reactive({
   inputAccount: localCache.getCache('inputAccount') ?? '',
   inputPassword: localCache.getCache('inputPassword') ?? ''
@@ -30,18 +32,23 @@ const rules = reactive({
   ]
 })
 const formRef = ref<FormInstance>()
-
+const store = useStore()
 const loginAction = (isKeepPsw) => {
-  formRef.value.validate((valid) => {
+
+  formRef.value?.validate((valid) => {
+
     if (valid) {
-      console.log('submit!')
+      //判断是否要记住密码
       if (isKeepPsw) {
         localCache.setCache("inputAccount", account.inputAccount)
         localCache.setCache("inputPassword", account.inputPassword)
+      }else {
+        localCache.removeCache('inputAccount')
+        localCache.removeCache('inputPassword')
       }
-    } else {
-      localCache.removeCache('inputAccount')
-      localCache.removeCache('inputPassword')
+      //进行登陆判断(响应式的解构）
+      store.dispatch('login/accountLoginAction',{... account})
+
     }
   })
 }

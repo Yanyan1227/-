@@ -1,7 +1,7 @@
 import HYRequest from "./request";
 
 const hyRequest = new HYRequest({
-  baseURL:'http://123.207.32.32:8000/',
+  baseURL:'http://123.207.32.32:5000',
   timeout:10000,
   //一个范例的拦截器
   interceptors:{

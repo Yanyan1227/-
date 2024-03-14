@@ -6,7 +6,7 @@ import { ElLoading } from 'element-plus'
 class HYRequest {
   instance:AxiosInstance
   interceptors?:HYRequestInterceptors
-  loading = ElLoading.service()
+  // loading = ElLoading.service()
 
   //拓展类型
   constructor(config : HYRequestConfig){
@@ -38,7 +38,7 @@ class HYRequest {
     this.instance.interceptors.response.use(
       (res) =>{
         console.log("所有拦截器：相应成功")
-        this.loading.close()
+        // this.loading.close()
         return res
       },
       (error) =>{
@@ -64,7 +64,6 @@ class HYRequest {
         res = config.interceptors.responseInterceptor(res)
       }
        //单个
-
       //将resolve返回出去
       resove(res)
     }).catch((error) =>{
