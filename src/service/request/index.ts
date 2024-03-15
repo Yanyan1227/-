@@ -72,5 +72,17 @@ class HYRequest {
     })
     })
 }
+
+get<T>(config:HYRequest):Promise<T>{
+  return this.request<T>({...config, method: 'GET'})
+}
+
+post<T>(config:HYRequest):Promise<T>{
+  return this.request<T>({...config, method: 'POST'})
+}
+
+delete<T>(config:HYRequest):Promise<T>{
+  return this.request<T>({...config, method: 'DELETE'})
+}
 }
 export default HYRequest

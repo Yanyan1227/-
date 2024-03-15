@@ -1,15 +1,14 @@
 import hyRequest from "@/service";
 
-interface IAccount {
+export interface IAccount {
   name:string
   password:string
 }
 
-export function accountLoginRequest(account){
-  return hyRequest.request({
+export function accountLoginRequest(account:IAccount){
+  return hyRequest.post({
     url:'/login',
     data:account,
-    method:"POST",
   })
 }
 
