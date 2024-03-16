@@ -38,7 +38,7 @@ class HYRequest {
     this.instance.interceptors.response.use(
       (res) =>{
         console.log("所有拦截器：相应成功")
-        // this.loading.close()
+        this.loading.close()
         return res
       },
       (error) =>{

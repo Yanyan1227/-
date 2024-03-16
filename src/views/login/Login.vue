@@ -21,7 +21,6 @@
 import loginAccount from './LoginAccount.vue'
 import { ref } from 'vue'
 const loginInfomation = ref();
-
 let isKeepPsw = ref(false)
 const getLogin = () => {
   loginInfomation.value.loginAction(isKeepPsw.value)

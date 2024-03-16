@@ -1,5 +1,7 @@
 import HYRequest from "./request";
+import localCache from '@/utils/cache';
 
+const token =  localCache.getCache('token')
 const hyRequest = new HYRequest({
   baseURL:'http://123.207.32.32:5000',
   timeout:10000,
@@ -7,7 +9,6 @@ const hyRequest = new HYRequest({
   interceptors:{
     requestInterceptor:(config) => {
       //这里可以写携带token
-      const token = ''
       if(token){
         config.headers.Authorization = `Bearer ${token}`
       }

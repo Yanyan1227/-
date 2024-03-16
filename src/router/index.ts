@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Login from "@/views/login/Login.vue";
-import Tumi from '@/views/Tumi.vue';
+import Main from '@/views/Main.vue';
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
@@ -10,9 +10,9 @@ const router = createRouter({
       component:Login
     },
     {
-      path: '/Tumi',
-      name: 'Tumi',
-      component:Tumi
+      path: '/Main',
+      name: 'Main',
+      component:Main
     },
   ]
 })

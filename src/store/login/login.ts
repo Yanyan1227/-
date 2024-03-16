@@ -1,22 +1,56 @@
 import type {Module} from "vuex";
 import type {ILoginState} from "@/store/login/loginType";
 import type {IRootState} from "@/store/types";
-import {accountLoginRequest} from "@/service/login/login";
+import {accountLoginRequest, requestMenusByRoleId, requestUserInfoById} from "@/service/login/login";
 import type {IAccount} from '@/service/login/login'
+import localCache from '@/utils/cache';
+import router from "@/router";
 const loginModule : Module<ILoginState,IRootState> = {
   namespaced:true,
   state(){
     return{
-      token:''
+      token:'',
+      userInfo:{},
+      userMenus:[]
     }
   },
-  mutations:{},
+  mutations:{
+    changeToken(state,token:string){
+      // console.log(token)
+      state.token = token
+      localCache.setCache('token',token)
+    },
+    changeUserInfo(state,userInfo:any){
+      state.userInfo = userInfo
+    },
+    changeUserMenus(state,userMenus:any){
+      state.userMenus = userMenus
+    }
+  },
   getters:{},
   actions:{
    async accountLoginAction({ commit } ,payload:IAccount){
       console.log("执行accountLoginAction",payload)
      const loginResult = await accountLoginRequest(payload)
-     console.log(loginResult)
+     const token = loginResult.data.data.token
+     const id = loginResult.data.data.id
+     commit("changeToken",token)
+
+     //请求用户信息
+     const userInfoResult=await requestUserInfoById(id)
+     const userInfo = userInfoResult.data.data
+     console.log(userInfo)
+     commit("changeUserInfo",userInfo)
+     localCache.setCache('userInfo',userInfo)
+
+     //请求用户菜单
+     const userMenusResult=await requestMenusByRoleId(userInfo.role.id)
+     const userMenus = userMenusResult.data
+     commit("changeUserMenus",userMenus)
+     localCache.setCache('userMenus',userMenus)
+
+     //跳转
+     router.push('/main')
     }
   }
 }
