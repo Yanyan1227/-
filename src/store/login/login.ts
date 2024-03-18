@@ -23,8 +23,9 @@ const loginModule : Module<ILoginState,IRootState> = {
     changeUserInfo(state,userInfo:any){
       state.userInfo = userInfo
     },
-    changeUserMenus(state,userMenus:any){
+    changeUserMenus(state,userMenus:string|number){
       state.userMenus = userMenus
+      localCache.setCache('userMenus',userMenus)
     }
   },
   getters:{},
@@ -46,6 +47,7 @@ const loginModule : Module<ILoginState,IRootState> = {
      //请求用户菜单
      const userMenusResult=await requestMenusByRoleId(userInfo.role.id)
      const userMenus = userMenusResult.data
+     console.log(userMenus)
      commit("changeUserMenus",userMenus)
      localCache.setCache('userMenus',userMenus)
 
