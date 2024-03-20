@@ -1,6 +1,5 @@
 <template>
-  <el-col :span="12">
-    <h5 class="mb-2">Default colors</h5>
+  <el-col :span="12" style="max-width: 100%">
     <el-menu
       background-color="#0c2135"
       text-color="#b7bdc3"
@@ -20,7 +19,7 @@
 
             <!--          遍历里面的标题-->
             <template v-for="subitem in item.children" :key="subitem.id">
-              <el-menu-item :index="subitem.id +''">
+              <el-menu-item :index="subitem.id +''" @click="handleMenusItem(subitem)">
                 <el-icon v-if="subitem.icon"></el-icon>
                 <span>{{ subitem.name }}</span>
               </el-menu-item>
@@ -43,15 +42,19 @@
 .el-col-12{
   max-width: none;
 }
-.el-menu{
-  border-right:none;
-}
 </style>
 
 <script lang="ts" setup>
 // import {computed} from "vue";
 // import {useStore} from "vuex";
 import localCache from '@/utils/cache';
+import {useRouter} from 'vue-router'
+
+const router = useRouter()
+const handleMenusItem = (menu) =>{
+  console.log(menu.url)
+  router.push('' +menu.url)
+}
 
 const userMenus = localCache.getCache('userMenus')
 const props= defineProps({

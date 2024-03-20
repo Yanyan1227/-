@@ -5,6 +5,9 @@ import {accountLoginRequest, requestMenusByRoleId, requestUserInfoById} from "@/
 import type {IAccount} from '@/service/login/login'
 import localCache from '@/utils/cache';
 import router from "@/router";
+import {mapMenusToRoutes} from "@/utils/mapMenus";
+
+
 const loginModule : Module<ILoginState,IRootState> = {
   namespaced:true,
   state(){
@@ -26,6 +29,16 @@ const loginModule : Module<ILoginState,IRootState> = {
     changeUserMenus(state,userMenus:string|number){
       state.userMenus = userMenus
       localCache.setCache('userMenus',userMenus)
+
+     //  userMenus=>routes
+     const routes = mapMenusToRoutes(userMenus)
+      console.log(routes)
+    // routes =>router.main.children
+      routes.forEach((route) =>{
+        // console.log(route)
+        router.addRoute('main',route)
+      })
+
     }
   },
   getters:{},
