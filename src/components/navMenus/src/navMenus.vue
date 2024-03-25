@@ -61,7 +61,6 @@ const menu = pathMapToMenus(userMenus.data,currentPath)
 const defaultValue = ref(menu.id +'')
 const handleMenusItem = (menu) =>{
   router.push('' +menu.url)
-  console.log(menu)
 }
 
 const props= defineProps({
