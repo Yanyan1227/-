@@ -2,7 +2,7 @@
   <el-form label-width="100px">
     <el-row>
       <template v-for="item in formItem" :key="item.label">
-        <el-col :span="8">
+        <el-col :sm="12" :lg="8">
           <el-form-item :label="item.label">
             <template v-if="item.type === 'input' || item.type ==='password' " >
               <el-input :placeholder="item.placeholder" :show-password="item.type === 'password' "></el-input>

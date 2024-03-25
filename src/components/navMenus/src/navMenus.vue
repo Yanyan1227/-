@@ -4,8 +4,9 @@
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
+      :default-active="defaultValue"
       :collapse="collapse"
-      default-active="1" class="el-menu-vertical-demo"
+      class="el-menu-vertical-demo"
     style="border-right:none;">
       <template v-for="item in userMenus.data" :key="item.id">
         <!--        二级菜单-->
@@ -48,15 +49,21 @@
 // import {computed} from "vue";
 // import {useStore} from "vuex";
 import localCache from '@/utils/cache';
-import {useRouter} from 'vue-router'
+import {useRouter,useRoute} from 'vue-router'
+import {ref} from "vue";
+import {pathMapToMenus} from "@/utils/mapMenus";
 
 const router = useRouter()
+const route = useRoute()
+const currentPath = route.path
+const userMenus = localCache.getCache('userMenus')
+const menu = pathMapToMenus(userMenus.data,currentPath)
+const defaultValue = ref(menu.id +'')
 const handleMenusItem = (menu) =>{
-  console.log(menu.url)
   router.push('' +menu.url)
+  console.log(menu)
 }
 
-const userMenus = localCache.getCache('userMenus')
 const props= defineProps({
   collapse:{
     type:Boolean

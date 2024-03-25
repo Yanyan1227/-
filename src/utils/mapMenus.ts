@@ -1,3 +1,6 @@
+import type {IBreadcrumb} from "@/baseUI/breadcrumb/src/IBreadcrumb";
+import breadcrumb from "@/baseUI/breadcrumb";
+
 export function mapMenusToRoutes(userMenus:any){
   const routes = []
 
@@ -23,5 +26,25 @@ export function mapMenusToRoutes(userMenus:any){
   _recurseGetRoute(userMenus.data)
 
   return routes
+}
 
+export function pathMapToBreadcrumbs(userMenus:any[],currentPath:string){
+  const breadcrumbs:IBreadcrumb[] = []
+  pathMapToMenus(userMenus,currentPath,breadcrumbs)
+return breadcrumbs
+}
+
+export function pathMapToMenus(userMenus:any[],currentPath:string,breadcrumbs?:IBreadcrumb[]):any{
+  for(const menu of userMenus){
+    if (menu.type === 1){
+     const findMenu=  pathMapToMenus(menu.children ??[],currentPath)
+      if(findMenu){
+        breadcrumbs?.push({name:menu.name})
+        breadcrumbs?.push({name:findMenu.name})
+        return findMenu
+      }
+    }else if(menu.type ==2 && menu.url === currentPath){
+      return menu
+    }
+  }
 }
