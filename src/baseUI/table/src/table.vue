@@ -1,5 +1,8 @@
 <template>
-  <el-table max-height="500px" :data="listData" border style="width: 100%">
+  <el-table max-height="500px" :data="listData" border style="width: 100%" @selection-change="getSelectionChange">
+    <el-table-column v-if="showSelectColumn" type="selection"></el-table-column>
+    <el-table-column type="index" label="序号" align="center" v-if="showIndexColumn">
+    </el-table-column>
     <template v-for="propItem in propLists" :key="propItem.prop">
       <el-table-column align="center" v-bind="propItem">
         <!--        动态插槽修改-->
@@ -16,6 +19,10 @@
 <script lang="ts" setup>
 import {defineProps} from 'vue'
 
+const getSelectionChange = (value) =>{
+  console.log(value)
+}
+
 const props = defineProps({
   listData: {
     type: Array,
@@ -24,6 +31,14 @@ const props = defineProps({
   propLists: {
     type: Array,
     required: true
-  }
+  },
+  showIndexColumn: {
+    type: Boolean,
+    // default:false
+  },
+  showSelectColumn: {
+    type: Boolean,
+    // default:false
+  },
 })
 </script>

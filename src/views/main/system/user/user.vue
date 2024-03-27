@@ -4,11 +4,22 @@
       <pageSearch>
       </pageSearch>
     </div>
-<HyTable :listData="userList" :propLists="propLists">
-  <template #createAt="scope">
-    <strong>{{scope.row.createAt}}</strong>
-  </template>
-</HyTable>
+    <HyTable :listData="userList" :propLists="propLists" :showIndexColumn="showIndexColumn"
+             :showSelectColumn="showSelectColumn">
+      <template #enable="scope">
+        <el-button :type="scope.row.enable ? 'success' : 'danger' ">{{ scope.row.enable }}</el-button>
+      </template>
+      <template #createAt="scope">
+        <span>{{ $filters.formatTime(scope.row.createAt) }}</span>
+      </template>
+      <template #updateAt="scope">
+        <span>{{ $filters.formatTime(scope.row.updateAt) }}</span>
+      </template>
+      <template #handler="scope">
+        <el-button type="text">编辑</el-button>
+        <el-button type="text">删除</el-button>
+      </template>
+    </HyTable>
   </div>
 </template>
 
@@ -37,43 +48,51 @@ const propLists = [
     prop: "name",
     label: "用户名",
     minWidth: "100",
-    slotName:'name'
+    slotName: 'name'
   },
   {
     prop: "realname",
     label: "真实姓名",
     minWidth: "100",
-    slotName:'realname'
+    slotName: 'realname'
   },
   {
     prop: "cellphone",
     label: "手机号码",
     minWidth: "100",
-    slotName:'cellphone'
+    slotName: 'cellphone'
   },
   {
     prop: "enable",
     label: "状态",
     minWidth: "100",
-    slotName:'enable'
+    slotName: 'enable'
   },
   {
     prop: "createAt",
     label: "创建时间",
     minWidth: "100",
-    slotName:'createAt'
+    slotName: 'createAt'
   },
   {
     prop: "updateAt",
     label: "更新时间",
     minWidth: "100",
-    slotName:'updateAt'
+    slotName: 'updateAt'
   },
+  {
+    label: '操作',
+    slotName: 'handler'
+  }
 ]
+
+const showIndexColumn = true
+const showSelectColumn = true
+
 
 </script>
 <style scoped>
-.search{
+.search {
   margin-bottom: 20px;
 }
 </style>
