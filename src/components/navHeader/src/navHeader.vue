@@ -34,7 +34,7 @@ const changeFold = () => {
   emit("foldChange", isFold.value)
 };
 
-const route = useRoute()
+const route =useRoute()
 const breadcrumbs =computed(() =>{
   const currentPath = route.path
   const userMenus = localCache.getCache('userMenus')

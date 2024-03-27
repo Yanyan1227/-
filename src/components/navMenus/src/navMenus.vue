@@ -4,7 +4,6 @@
       background-color="#0c2135"
       text-color="#b7bdc3"
       active-text-color="#0a60bd"
-      :default-active="defaultValue"
       :collapse="collapse"
       class="el-menu-vertical-demo"
     style="border-right:none;">
@@ -57,9 +56,14 @@ const router = useRouter()
 const route = useRoute()
 const currentPath = route.path
 const userMenus = localCache.getCache('userMenus')
+console.log(userMenus.data)
 const menu = pathMapToMenus(userMenus.data,currentPath)
-const defaultValue = ref(menu.id +'')
+console.log("是")
+// console.log(menu)
+// const defaultValue = ref(menu.id +'')
+
 const handleMenusItem = (menu) =>{
+  console.log(menu.url)
   router.push('' +menu.url)
 }
 
